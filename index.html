@@ -86,6 +86,13 @@
         const savedOptions = JSON.parse(localStorage.getItem('options'));
         if (savedOptions) {
             options = savedOptions;
+        } else {
+            // 若 localStorage 無選項資料，設置初始選項
+            options = [
+                { text: "左邊遠遠有一人的道路", action: leftPath },
+                { text: "右邊森林疑似有的道路", action: rightPath }
+            ];
+            localStorage.setItem('options', JSON.stringify(options)); // 儲存至 localStorage
         }
         updateButtons();
     }
@@ -94,6 +101,7 @@
         const btn1 = document.getElementById('btn1');
         const btn2 = document.getElementById('btn2');
 
+        // 根據當前選項更新按鈕
         if (options.length > 0) {
             btn1.innerText = options[0].text;
             btn1.onclick = options[0].action;
@@ -111,18 +119,7 @@
         }
     }
 
-    function resetButtons() {
-        document.getElementById('btn1').style.display = 'none';
-        document.getElementById('btn2').style.display = 'none';
-    }
-
     function startGame() {
-        // 初始選項
-        options = [
-            { text: "左邊遠遠有一人的道路", action: leftPath },
-            { text: "右邊森林疑似有的道路", action: rightPath }
-        ];
-        localStorage.setItem('options', JSON.stringify(options));
         updateButtons();
     }
 
@@ -144,7 +141,7 @@
         if (newOptionText) {
             const newOption = { text: newOptionText, action: newOptionAction };
             options.push(newOption);
-            localStorage.setItem('options', JSON.stringify(options));
+            localStorage.setItem('options', JSON.stringify(options)); // 儲存新增選項到 localStorage
             updateButtons();
         }
     };
@@ -153,7 +150,7 @@
     document.getElementById('removeOptionButton').onclick = function() {
         if (options.length > 2) {
             options.pop();
-            localStorage.setItem('options', JSON.stringify(options));
+            localStorage.setItem('options', JSON.stringify(options)); // 更新 localStorage
             updateButtons();
         }
     };
@@ -164,7 +161,7 @@
             const newOptionText = prompt("請輸入修改後的選項描述：");
             if (newOptionText) {
                 options[0].text = newOptionText;
-                localStorage.setItem('options', JSON.stringify(options));
+                localStorage.setItem('options', JSON.stringify(options)); // 更新 localStorage
                 updateButtons();
             }
         }
