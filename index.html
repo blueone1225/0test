@@ -100,7 +100,7 @@
     function addOption() {
       const text = prompt("輸入選項內容：", "神秘的小路");
       const result = prompt("輸入這個選項的結果描述：", "你走進小路，遇到一隻奇怪的貓。");
-      const nextOptionsText = prompt("接下來會有更多選項，請輸入下一步的選項 (分號分開)：", "走向樹下; 繼續往前走");
+      const nextOptionsText = prompt("接下來會有更多選項，請輸入下一步的選項 (分號分開)：", "貓幻化成女僕");
       const nextOptions = nextOptionsText.split(';').map(option => {
         return {
           text: option.trim(),
