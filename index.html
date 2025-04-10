@@ -75,8 +75,7 @@
   </div>
 
   <script>
-    let options = [];
-    let storyText = "你被召喚到異世界，面前出現了幾條路，你想選哪一條？";
+    let options = JSON.parse(localStorage.getItem('options')) || [];  // 從 localStorage 加載選項
 
     function renderOptions() {
       const container = document.getElementById('options');
@@ -100,7 +99,7 @@
     function addOption() {
       const text = prompt("輸入選項內容：", "神秘的小路");
       const result = prompt("輸入這個選項的結果描述：", "你走進小路，遇到一隻奇怪的貓。");
-      const nextOptionsText = prompt("接下來會有更多選項，請輸入下一步的選項 (分號分開)：", "貓幻化成女僕");
+      const nextOptionsText = prompt("接下來會有更多選項，請輸入下一步的選項 (分號分開)：", "走向樹下; 繼續往前走");
       const nextOptions = nextOptionsText.split(';').map(option => {
         return {
           text: option.trim(),
@@ -111,6 +110,7 @@
 
       if (text && result) {
         options.push({ text, result, nextOptions });
+        localStorage.setItem('options', JSON.stringify(options));  // 保存到 localStorage
         renderOptions();
       }
     }
@@ -126,6 +126,7 @@
         const newResult = prompt("輸入新的劇情描述：", options[index].result);
         if (newText && newResult) {
           options[index] = { text: newText, result: newResult, nextOptions: [] };
+          localStorage.setItem('options', JSON.stringify(options));  // 保存到 localStorage
           renderOptions();
         }
       } else {
@@ -141,6 +142,7 @@
       const index = parseInt(prompt(`輸入要刪除的選項編號 (1-${options.length})：`)) - 1;
       if (index >= 0 && index < options.length) {
         options.splice(index, 1);
+        localStorage.setItem('options', JSON.stringify(options));  // 保存到 localStorage
         renderOptions();
       } else {
         alert("無效的選項編號。");
