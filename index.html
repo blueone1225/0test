@@ -7,32 +7,39 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
+      background-color: #e0f0f9; /* 淡藍背景 */
       padding: 20px;
     }
     .game-container {
       max-width: 600px;
       margin: auto;
-      background: white;
+      background: #ffffff; /* 白色背景 */
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border: 1px solid #a0c1d1; /* 藍色邊框 */
+    }
+    h2 {
+      color: #3f76c2; /* 藍色標題 */
     }
     .story-text {
       margin-bottom: 20px;
+      font-size: 18px;
+      color: #333;
     }
     .option {
       display: block;
-      margin: 5px 0;
-      padding: 10px;
-      background-color: #4CAF50;
+      margin: 10px 0;
+      padding: 12px;
+      background-color: #66aaff; /* 淡藍色選項 */
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
     .option:hover {
-      background-color: #45a049;
+      background-color: #3385d6; /* 深藍色選項 hover */
     }
     .control-buttons {
       margin-top: 20px;
@@ -40,6 +47,15 @@
     .control-buttons button {
       margin-right: 10px;
       margin-bottom: 10px;
+      padding: 10px;
+      background-color: #b0c4de; /* 淡灰色背景 */
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .control-buttons button:hover {
+      background-color: #8a9db0; /* 深灰色 */
     }
   </style>
 </head>
@@ -60,6 +76,7 @@
 
   <script>
     let options = [];
+    let storyText = "你被召喚到異世界，面前出現了幾條路，你想選哪一條？";
 
     function renderOptions() {
       const container = document.getElementById('options');
@@ -70,6 +87,11 @@
         btn.innerText = opt.text;
         btn.onclick = () => {
           document.getElementById('story').innerText = opt.result;
+          storyText = opt.result;
+          if (opt.nextOptions) {
+            options = opt.nextOptions;
+            renderOptions();
+          }
         };
         container.appendChild(btn);
       });
@@ -78,8 +100,17 @@
     function addOption() {
       const text = prompt("輸入選項內容：", "神秘的小路");
       const result = prompt("輸入這個選項的結果描述：", "你走進小路，遇到一隻奇怪的貓。");
+      const nextOptionsText = prompt("接下來會有更多選項，請輸入下一步的選項 (分號分開)：", "走向樹下; 繼續往前走");
+      const nextOptions = nextOptionsText.split(';').map(option => {
+        return {
+          text: option.trim(),
+          result: `你選擇了: ${option.trim()}`,
+          nextOptions: []
+        };
+      });
+
       if (text && result) {
-        options.push({ text, result });
+        options.push({ text, result, nextOptions });
         renderOptions();
       }
     }
@@ -94,7 +125,7 @@
         const newText = prompt("輸入新的選項文字：", options[index].text);
         const newResult = prompt("輸入新的劇情描述：", options[index].result);
         if (newText && newResult) {
-          options[index] = { text: newText, result: newResult };
+          options[index] = { text: newText, result: newResult, nextOptions: [] };
           renderOptions();
         }
       } else {
@@ -116,10 +147,18 @@
       }
     }
 
-    // 初始化時可加入預設兩個選項
+    // 初始化選項
     options.push(
-      { text: "左邊小徑", result: "你遇到一位智者。" },
-      { text: "右邊森林", result: "你陷入了陷阱。" }
+      { text: "左邊小徑", result: "你遇到一位智者，智者給了你三個選項：", nextOptions: [
+          { text: "接受智者的挑戰", result: "智者對你說：'成功將帶來無盡的智慧。'", nextOptions: [] },
+          { text: "拒絕挑戰，繼續前行", result: "你選擇繼續前行，發現了一座遺失的城市。", nextOptions: [] }
+        ]
+      },
+      { text: "右邊森林", result: "你被一群妖精圍住，他們詢問你是否願意加入他們的族群。", nextOptions: [
+          { text: "接受妖精的邀請", result: "妖精帶你進入他們的隱秘森林，給你提供了強大的魔法力量。", nextOptions: [] },
+          { text: "拒絕並離開", result: "妖精生氣了，對你施下了詛咒，讓你迷失在森林中。", nextOptions: [] }
+        ]
+      }
     );
     renderOptions();
   </script>
