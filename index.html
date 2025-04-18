@@ -1,176 +1,99 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>動態選項冒險遊戲</title>
+  <meta charset="UTF-8">
+  <title>老師上課時數計算器</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #e0f0f9; /* 淡藍背景 */
+      font-family: "Microsoft JhengHei", sans-serif;
+      background: #fff8e1;
+      color: #333;
       padding: 20px;
-    }
-    .game-container {
-      max-width: 600px;
-      margin: auto;
-      background: #ffffff; /* 白色背景 */
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      border: 1px solid #a0c1d1; /* 藍色邊框 */
     }
     h2 {
-      color: #3f76c2; /* 藍色標題 */
+      color: #d35400;
     }
-    .story-text {
+    table {
+      width: 100%;
+      border-collapse: collapse;
       margin-bottom: 20px;
-      font-size: 18px;
-      color: #333;
     }
-    .option {
-      display: block;
-      margin: 10px 0;
-      padding: 12px;
-      background-color: #66aaff; /* 淡藍色選項 */
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
+    table, th, td {
+      border: 1px solid #aaa;
     }
-    .option:hover {
-      background-color: #3385d6; /* 深藍色選項 hover */
-    }
-    .control-buttons {
-      margin-top: 20px;
-    }
-    .control-buttons button {
-      margin-right: 10px;
-      margin-bottom: 10px;
+    th, td {
       padding: 10px;
-      background-color: #b0c4de; /* 淡灰色背景 */
-      color: white;
+      text-align: center;
+    }
+    input[type="number"], input[type="text"] {
+      width: 90%;
+      padding: 5px;
+    }
+    button {
+      background-color: #ffa726;
       border: none;
-      border-radius: 4px;
+      padding: 10px 15px;
+      color: white;
+      border-radius: 5px;
       cursor: pointer;
     }
-    .control-buttons button:hover {
-      background-color: #8a9db0; /* 深灰色 */
+    button:hover {
+      background-color: #fb8c00;
     }
   </style>
 </head>
 <body>
-  <div class="game-container">
-    <h2>平行時空異世界</h2>
-    <div id="story" class="story-text">
-      你被召喚到異世界，面前出現了幾條路，你想選哪一條？
-    </div>
-    <div id="options"></div>
 
-    <div class="control-buttons">
-      <button onclick="addOption()">新增選項</button>
-      <button onclick="editOption()">修改選項</button>
-      <button onclick="removeOption()">刪除選項</button>
-    </div>
+  <h2>📚 老師上課時數計算器</h2>
+  <table id="teacherTable">
+    <thead>
+      <tr>
+        <th>老師姓名</th>
+        <th>正常時數</th>
+        <th>常態超鐘</th>
+        <th>特殊代課超鐘</th>
+        <th>總時數</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="text" placeholder="輸入姓名"></td>
+        <td><input type="number" value="0"></td>
+        <td><input type="number" value="0"></td>
+        <td><input type="number" value="0"></td>
+        <td class="total">0</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <h2> 無能技能 </h2>
-    <iframe width="560" height="315" 
-        src="https://www.youtube.com/embed/OdzHlzx5Wik" 
-        frameborder="0" allowfullscreen>
-    </iframe>
-
-    
-  </div>
+  <button onclick="addRow()">➕ 新增老師</button>
+  <button onclick="calculateTotal()">📌 計算總時數</button>
 
   <script>
-    let options = JSON.parse(localStorage.getItem('options')) || [];  // 從 localStorage 加載選項
+    function addRow() {
+      const table = document.getElementById("teacherTable").getElementsByTagName('tbody')[0];
+      const newRow = table.insertRow();
+      newRow.innerHTML = `
+        <td><input type="text" placeholder="輸入姓名"></td>
+        <td><input type="number" value="0"></td>
+        <td><input type="number" value="0"></td>
+        <td><input type="number" value="0"></td>
+        <td class="total">0</td>
+      `;
+    }
 
-    function renderOptions() {
-      const container = document.getElementById('options');
-      container.innerHTML = '';
-      options.forEach((opt, index) => {
-        const btn = document.createElement('button');
-        btn.className = 'option';
-        btn.innerText = opt.text;
-        btn.onclick = () => {
-          document.getElementById('story').innerText = opt.result;
-          storyText = opt.result;
-          if (opt.nextOptions) {
-            options = opt.nextOptions;
-            renderOptions();
-          }
-        };
-        container.appendChild(btn);
+    function calculateTotal() {
+      const rows = document.querySelectorAll("#teacherTable tbody tr");
+      rows.forEach(row => {
+        const inputs = row.querySelectorAll("input");
+        const normal = parseFloat(inputs[1].value) || 0;
+        const overtime1 = parseFloat(inputs[2].value) || 0;
+        const overtime2 = parseFloat(inputs[3].value) || 0;
+        const total = normal + overtime1 + overtime2;
+        row.querySelector(".total").innerText = total;
       });
     }
-
-    function addOption() {
-      const text = prompt("輸入選項內容：", "神秘的小路");
-      const result = prompt("輸入這個選項的結果描述：", "你走進小路，遇到一隻奇怪的貓。");
-      const nextOptionsText = prompt("接下來會有更多選項，請輸入下一步的選項 (分號分開)：", "走向樹下; 繼續往前走");
-      const nextOptions = nextOptionsText.split(';').map(option => {
-        return {
-          text: option.trim(),
-          result: `你選擇了: ${option.trim()}`,
-          nextOptions: []
-        };
-      });
-
-      if (text && result) {
-        options.push({ text, result, nextOptions });
-        localStorage.setItem('options', JSON.stringify(options));  // 保存到 localStorage
-        renderOptions();
-      }
-    }
-
-    function editOption() {
-      if (options.length === 0) {
-        alert("目前沒有選項可修改。");
-        return;
-      }
-      const index = parseInt(prompt(`輸入要修改的選項編號 (1-${options.length})：`)) - 1;
-      if (index >= 0 && index < options.length) {
-        const newText = prompt("輸入新的選項文字：", options[index].text);
-        const newResult = prompt("輸入新的劇情描述：", options[index].result);
-        if (newText && newResult) {
-          options[index] = { text: newText, result: newResult, nextOptions: [] };
-          localStorage.setItem('options', JSON.stringify(options));  // 保存到 localStorage
-          renderOptions();
-        }
-      } else {
-        alert("無效的選項編號。");
-      }
-    }
-
-    function removeOption() {
-      if (options.length === 0) {
-        alert("目前沒有選項可刪除。");
-        return;
-      }
-      const index = parseInt(prompt(`輸入要刪除的選項編號 (1-${options.length})：`)) - 1;
-      if (index >= 0 && index < options.length) {
-        options.splice(index, 1);
-        localStorage.setItem('options', JSON.stringify(options));  // 保存到 localStorage
-        renderOptions();
-      } else {
-        alert("無效的選項編號。");
-      }
-    }
-
-    // 初始化選項
-    options.push(
-      { text: "左邊小徑", result: "你遇到一位智者，智者給了你三個選項：", nextOptions: [
-          { text: "接受智者的挑戰", result: "智者對你說：'成功將帶來無盡的智慧。'", nextOptions: [] },
-          { text: "拒絕挑戰，繼續前行", result: "你選擇繼續前行，發現了一座遺失的城市。", nextOptions: [] }
-        ]
-      },
-      { text: "右邊森林", result: "你被一群妖精圍住，他們詢問你是否願意加入他們的族群。", nextOptions: [
-          { text: "接受妖精的邀請", result: "妖精帶你進入他們的隱秘森林，給你提供了強大的魔法力量。", nextOptions: [] },
-          { text: "拒絕並離開", result: "妖精生氣了，對你施下了詛咒，讓你迷失在森林中。", nextOptions: [] }
-        ]
-      }
-    );
-    renderOptions();
   </script>
+
 </body>
 </html>
