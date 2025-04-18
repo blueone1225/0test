@@ -2,12 +2,12 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>老師上課時數計算器</title>
+  <title>老師時數計算器 (Excel 匯入版)</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
     body {
       font-family: "Microsoft JhengHei", sans-serif;
       background: #fff8e1;
-      color: #333;
       padding: 20px;
     }
     h2 {
@@ -16,23 +16,21 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-    table, th, td {
-      border: 1px solid #aaa;
+      margin-top: 20px;
     }
     th, td {
+      border: 1px solid #aaa;
       padding: 10px;
       text-align: center;
     }
-    input[type="number"], input[type="text"] {
-      width: 90%;
-      padding: 5px;
+    input[type="file"] {
+      margin-top: 10px;
     }
     button {
+      margin-top: 15px;
+      padding: 8px 12px;
       background-color: #ffa726;
       border: none;
-      padding: 10px 15px;
       color: white;
       border-radius: 5px;
       cursor: pointer;
@@ -44,55 +42,58 @@
 </head>
 <body>
 
-  <h2>📚 老師上課時數計算器</h2>
+  <h2>📂 老師上課時數計算器（Excel 自動匯入）</h2>
+
+  <input type="file" id="uploadExcel" accept=".xlsx">
   <table id="teacherTable">
     <thead>
       <tr>
-        <th>老師姓名</th>
+        <th>姓名</th>
         <th>正常時數</th>
         <th>常態超鐘</th>
         <th>特殊代課超鐘</th>
-        <th>總時數</th>
+        <th>合計總時數</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td><input type="text" placeholder="輸入姓名"></td>
-        <td><input type="number" value="0"></td>
-        <td><input type="number" value="0"></td>
-        <td><input type="number" value="0"></td>
-        <td class="total">0</td>
-      </tr>
-    </tbody>
+    <tbody></tbody>
   </table>
 
-  <button onclick="addRow()">➕ 新增老師</button>
-  <button onclick="calculateTotal()">📌 計算總時數</button>
-
   <script>
-    function addRow() {
-      const table = document.getElementById("teacherTable").getElementsByTagName('tbody')[0];
-      const newRow = table.insertRow();
-      newRow.innerHTML = `
-        <td><input type="text" placeholder="輸入姓名"></td>
-        <td><input type="number" value="0"></td>
-        <td><input type="number" value="0"></td>
-        <td><input type="number" value="0"></td>
-        <td class="total">0</td>
-      `;
-    }
+    document.getElementById('uploadExcel').addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
 
-    function calculateTotal() {
-      const rows = document.querySelectorAll("#teacherTable tbody tr");
-      rows.forEach(row => {
-        const inputs = row.querySelectorAll("input");
-        const normal = parseFloat(inputs[1].value) || 0;
-        const overtime1 = parseFloat(inputs[2].value) || 0;
-        const overtime2 = parseFloat(inputs[3].value) || 0;
-        const total = normal + overtime1 + overtime2;
-        row.querySelector(".total").innerText = total;
-      });
-    }
+      reader.onload = function (event) {
+        const data = new Uint8Array(event.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+        const jsonData = XLSX.utils.sheet_to_json(sheet, { defval: 0 }); // defval: 0 可避免空格變 undefined
+
+        const tbody = document.querySelector("#teacherTable tbody");
+        tbody.innerHTML = ""; // 清空舊資料
+
+        jsonData.forEach(row => {
+          const name = row["姓名"] || "（無名）";
+          const normal = parseFloat(row["正常時數"]) || 0;
+          const ot1 = parseFloat(row["常態超鐘"]) || 0;
+          const ot2 = parseFloat(row["特殊代課超鐘"]) || 0;
+          const total = normal + ot1 + ot2;
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${name}</td>
+            <td>${normal}</td>
+            <td>${ot1}</td>
+            <td>${ot2}</td>
+            <td><strong>${total}</strong></td>
+          `;
+          tbody.appendChild(tr);
+        });
+      };
+
+      reader.readAsArrayBuffer(file);
+    });
   </script>
 
 </body>
