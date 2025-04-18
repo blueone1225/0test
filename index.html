@@ -58,43 +58,50 @@
     <tbody></tbody>
   </table>
 
-  <script>
-    document.getElementById('uploadExcel').addEventListener('change', function (e) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
+ <script>
+  document.getElementById('uploadExcel').addEventListener('change', function (e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
 
-      reader.onload = function (event) {
-        const data = new Uint8Array(event.target.result);
-        const workbook = XLSX.read(data, { type: 'array' });
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-        const jsonData = XLSX.utils.sheet_to_json(sheet, { defval: 0 }); // defval: 0 可避免空格變 undefined
+    reader.onload = function (event) {
+      const data = new Uint8Array(event.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = workbook.Sheets[sheetName];
+      const jsonData = XLSX.utils.sheet_to_json(sheet, { defval: 0 }); // defval: 0 可避免空格變 undefined
 
-        const tbody = document.querySelector("#teacherTable tbody");
-        tbody.innerHTML = ""; // 清空舊資料
+      const tbody = document.querySelector("#teacherTable tbody");
+      tbody.innerHTML = ""; // 清空舊資料
 
-        jsonData.forEach(row => {
-          const name = row["姓名"] || "（無名）";
-          const normal = parseFloat(row["正常時數"]) || 0;
-          const ot1 = parseFloat(row["常態超"]) || 0;
-          const ot2 = parseFloat(row["特殊代課超"]) || 0;
-          const total = normal + ot1 + ot2;
+      jsonData.forEach(row => {
+        const name = row["姓名"] || "（無名）";
+        const normal = parseFloat(row["正常時數"]) || 0;
+        const ot1 = parseFloat(row["常態超鐘"]) || 0;
+        const ot2 = parseFloat(row["特殊代課超鐘"]) || 0; // 確保特殊代課超鐘正確讀取
 
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${name}</td>
-            <td>${normal}</td>
-            <td>${ot1}</td>
-            <td>${ot2}</td>
-            <td><strong>${total}</strong></td>
-          `;
-          tbody.appendChild(tr);
-        });
-      };
+        // 顯示每一行的資料進行調試
+        console.log(`姓名: ${name}, 正常時數: ${normal}, 常態超鐘: ${ot1}, 特殊代課超鐘: ${ot2}`);
 
-      reader.readAsArrayBuffer(file);
-    });
-  </script>
+        const total = normal + ot1 + ot2; // 確保總時數正確計算
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${name}</td>
+          <td>${normal}</td>
+          <td>${ot1}</td>
+          <td>${ot2}</td>
+          <td><strong>${total}</strong></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    };
+
+    reader.readAsArrayBuffer(file);
+  });
+</script>
+
+
+    
 
 </body>
 </html>
