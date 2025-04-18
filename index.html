@@ -50,8 +50,8 @@
       <tr>
         <th>姓名</th>
         <th>正常時數</th>
-        <th>常態超鐘</th>
-        <th>特殊代課超鐘</th>
+        <th>常態超</th>
+        <th>特殊代課超</th>
         <th>合計總時數</th>
       </tr>
     </thead>
@@ -76,8 +76,8 @@
         jsonData.forEach(row => {
           const name = row["姓名"] || "（無名）";
           const normal = parseFloat(row["正常時數"]) || 0;
-          const ot1 = parseFloat(row["常態超鐘"]) || 0;
-          const ot2 = parseFloat(row["特殊代課超鐘"]) || 0;
+          const ot1 = parseFloat(row["常態超"]) || 0;
+          const ot2 = parseFloat(row["特殊代課超"]) || 0;
           const total = normal + ot1 + ot2;
 
           const tr = document.createElement("tr");
