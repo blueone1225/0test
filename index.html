@@ -2,106 +2,70 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>老師時數計算器 (Excel 匯入版)</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>藍京網頁設計工作室</title>
   <style>
-    body {
-      font-family: "Microsoft JhengHei", sans-serif;
-      background: #fff8e1;
-      padding: 20px;
-    }
-    h2 {
-      color: #d35400;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      border: 1px solid #aaa;
-      padding: 10px;
-      text-align: center;
-    }
-    input[type="file"] {
-      margin-top: 10px;
-    }
-    button {
-      margin-top: 15px;
-      padding: 8px 12px;
-      background-color: #ffa726;
-      border: none;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #fb8c00;
+    body { font-family: sans-serif; margin: 0; padding: 0; line-height: 1.6; background: #f4f4f4; }
+    header { background: #007BFF; color: white; padding: 2rem; text-align: center; }
+    section { padding: 2rem; max-width: 900px; margin: auto; }
+    h2 { color: #333; border-bottom: 2px solid #007BFF; padding-bottom: 0.3rem; }
+    .service, .work { margin-bottom: 2rem; }
+    .work-item { background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .work-item h3 { margin-top: 0; }
+    .btn { background: #007BFF; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 1rem; }
+    input, textarea { width: 100%; padding: 0.5rem; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 4px; }
+    button { background: #007BFF; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer; }
+    footer { background: #333; color: white; text-align: center; padding: 1rem; margin-top: 3rem; }
+    @media (max-width: 600px) {
+      header, section, footer { padding: 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <h2>📂 老師上課時數計算器（Excel 自動匯入）</h2>
+<header>
+  <h1>藍京網頁設計工作室</h1>
+  <p>量身而訂製，誠信是原則｜網站・安卓App・後台開發</p>
+</header>
 
-  <input type="file" id="uploadExcel" accept=".xlsx">
-  <table id="teacherTable">
-    <thead>
-      <tr>
-        <th>姓名</th>
-        <th>正常時數</th>
-        <th>常態超</th>
-        <th>特殊代課超</th>
-        <th>合計總時數</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+<section>
+  <h2>我們能為你做什麼</h2>
+  <div class="service">
+    <p>✅ 客製化企業官網、形象網站</p>
+    <p>✅ Android App 開發</p>
+    <p>✅ 後台管理系統設計</p>
+    <p>✅ UI/UX 介面設計</p>
+    <p>✅ 程式錯誤修正、系統維護</p>
+  </div>
 
- <script>
-  document.getElementById('uploadExcel').addEventListener('change', function (e) {
-    const file = e.target.files[0];
-    const reader = new FileReader();
+  <h2>近期作品</h2>
+  <div class="work">
+    <div class="work-item">
+      <img src="https://yt3.ggpht.com/Qoo8QfUkxcaDG5WZKBw7IEmC_yFLzu4AbdWu5AOfWT0YIa2rzpe1ssgFj0cy3onaNY571NmTE5_8=s922-c-fcrop64=1,13830000d02fffff-rw-nd-v1" alt="作品圖片" style="width:100%; border-radius:5px; margin-bottom:1rem;">
+      <h3>桌上遊戲卡片管理系統 <small style="color:#555;">｜Web專案</small></h3>
+      <p>卡片上架、售價排序、稀有度篩選，前後台皆可管理，適合收藏與二手交易商用。</p>
+      <a href="#" class="btn">查看作品</a>
+    </div>
+    <div class="work-item">
+      <img src=" https://ecpos.mybiz.net.tw/wp-content/uploads/%E5%B9%B3%E6%9D%BF1.png " alt="作品圖片" style="width:100%; border-radius:5px; margin-bottom:1rem;">
+      <h3>Android 訂餐App <small style="color:#555;">｜Android App</small></h3>
+      <p>簡易點餐、查看菜單、訂單紀錄，支援離線儲存與即時後台同步。</p>
+      <a href="#" class="btn">查看作品</a>
+    </div>
+  </div>
 
-    reader.onload = function (event) {
-      const data = new Uint8Array(event.target.result);
-      const workbook = XLSX.read(data, { type: 'array' });
-      const sheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json(sheet, { defval: 0 }); // defval: 0 可避免空格變 undefined
+  <h2>洽詢表單</h2>
+  <form method="POST">
+    <input type="text" name="name" placeholder="您的姓名" required>
+    <input type="email" name="email" placeholder="您的Email" required>
+    <textarea name="message" placeholder="請簡述需求內容" rows="5" required></textarea>
+    <button type="submit">送出詢問</button>
+  </form>
+</section>
 
-      const tbody = document.querySelector("#teacherTable tbody");
-      tbody.innerHTML = ""; // 清空舊資料
-
-      jsonData.forEach(row => {
-        const name = row["姓名"] || "（無名）";
-        const normal = parseFloat(row["正常時數"]) || 0;
-        const ot1 = parseFloat(row["常態超鐘"]) || 0;
-        const ot2 = parseFloat(row["特殊代課超鐘"]) || 0; // 確保特殊代課超鐘正確讀取
-
-        // 顯示每一行的資料進行調試
-        console.log(`姓名: ${name}, 正常時數: ${normal}, 常態超鐘: ${ot1}, 特殊代課超鐘: ${ot2}`);
-
-        const total = normal + ot1 + ot2; // 確保總時數正確計算
-
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${name}</td>
-          <td>${normal}</td>
-          <td>${ot1}</td>
-          <td>${ot2}</td>
-          <td><strong>${total}</strong></td>
-        `;
-        tbody.appendChild(tr);
-      });
-    };
-
-    reader.readAsArrayBuffer(file);
-  });
-</script>
-
-
-    
+<footer>
+  <p>© 2025 藍京網頁設計工作室 | <a href="#" style="color:white; margin-left:5px;">Line我</a></p>
+</footer>
 
 </body>
 </html>
