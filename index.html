@@ -1,72 +1,197 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>藍京網頁設計工作室</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Acme Corp - Professional Solutions</title>
   <style>
-    body { font-family: sans-serif; margin: 0; padding: 0; line-height: 1.6; background: #f4f4f4; }
-    header { background: #007BFF; color: white; padding: 2rem; text-align: center; }
-    section { padding: 2rem; max-width: 900px; margin: auto; }
-    h2 { color: #333; border-bottom: 2px solid #007BFF; padding-bottom: 0.3rem; }
-    .service, .work { margin-bottom: 2rem; }
-    .work-item { background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    .work-item h3 { margin-top: 0; }
-    .btn { background: #007BFF; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 1rem; }
-    input, textarea { width: 100%; padding: 0.5rem; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 4px; }
-    button { background: #007BFF; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer; }
-    footer { background: #333; color: white; text-align: center; padding: 1rem; margin-top: 3rem; }
+    /* Reset some default */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #004080;
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+    }
+    nav {
+      background: #0066cc;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem 0;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      transition: background-color 0.3s ease;
+      border-radius: 4px;
+    }
+    nav a:hover {
+      background: #004080;
+    }
+    main {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    h2 {
+      color: #004080;
+      border-bottom: 3px solid #0066cc;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .services {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .service {
+      background: white;
+      flex: 1 1 250px;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .service:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+    }
+    .service h3 {
+      margin-top: 0;
+      color: #0066cc;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: #004080;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: #00264d;
+    }
+    footer {
+      background: #004080;
+      color: white;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.9rem;
+    }
+    /* Responsive */
     @media (max-width: 600px) {
-      header, section, footer { padding: 1rem; }
+      .services {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1> 藍京網頁設計 Corp</h1>
+    <p>Your Trusted Partner in Professional Solutions</p>
+  </header>
+  <nav>
+    <a href="#services">服務Services</a>
+    <a href="#about">關於我們About Us</a>
+    <a href="#contact">聯絡方式Contact</a>
+  </nav>
+  <main>
+    <section id="services">
+      <h2>Our Services</h2>
+      <div class="services">
+        <div class="service">
+          <h3>Web Development</h3>
+          <p>Custom websites, e-commerce platforms, and responsive design tailored to your business needs.</p>
+          <a href="#contact" class="btn-primary">Get Started</a>
+        </div>
+        <div class="service">
+          <h3>Mobile Apps</h3>
+          <p>iOS and Android app development to reach your customers on any device.</p>
+          <a href="#contact" class="btn-primary">Get Started</a>
+        </div>
+        <div class="service">
+          <h3>Digital Marketing</h3>
+          <p>SEO, social media campaigns, and content creation to grow your online presence.</p>
+          <a href="#contact" class="btn-primary">Get Started</a>
+        </div>
+      </div>
+    </section>
 
-<header>
-  <h1>藍京網頁設計工作室</h1>
-  <p>量身而訂製，誠信是原則｜網站・安卓App・後台開發</p>
-</header>
+    <section id="about">
+      <h2>About Us</h2>
+      <p>At 藍京網頁設計 Corp, we have over 10 years of experience delivering quality tech solutions to businesses worldwide. Our team is dedicated to innovation, reliability, and customer success. We combine industry expertise with modern technologies to ensure your projects succeed.</p>
+    </section>
 
-<section>
-  <h2>我們能為你做什麼</h2>
-  <div class="service">
-    <p>✅ 客製化企業官網、形象網站</p>
-    <p>✅ Android App 開發</p>
-    <p>✅ 後台管理系統設計</p>
-    <p>✅ UI/UX 介面設計</p>
-    <p>✅ 程式錯誤修正、系統維護</p>
-  </div>
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <form id="contactForm" onsubmit="return handleSubmit(event)" style="max-width: 500px; margin: auto;">
+        <label for="name">Name名字</label><br />
+        <input type="text" id="name" name="name" placeholder="Your Name" required /><br />
 
-  <h2>近期作品</h2>
-  <div class="work">
-   
-    <div class="work-item">
-      <img src=" https://ecpos.mybiz.net.tw/wp-content/uploads/%E5%B9%B3%E6%9D%BF1.png " alt="作品圖片" style="width:100%; border-radius:5px; margin-bottom:1rem;">
-      <h3>Android 訂餐App <small style="color:#555;">｜Android App</small></h3>
-      <p>簡易點餐、查看菜單、訂單紀錄，支援離線儲存與即時後台同步。</p>
-      <a href="#" class="btn">查看作品</a>
-    </div>
-    <div class="work-item">
-      <img src="https://yt3.ggpht.com/Qoo8QfUkxcaDG5WZKBw7IEmC_yFLzu4AbdWu5AOfWT0YIa2rzpe1ssgFj0cy3onaNY571NmTE5_8=s922-c-fcrop64=1,13830000d02fffff-rw-nd-v1" alt="作品圖片" style="width:100%; border-radius:5px; margin-bottom:1rem;">
-      <h3>桌上遊戲卡片管理系統 <small style="color:#555;">｜Web專案</small></h3>
-      <p>卡片上架、售價排序、稀有度篩選，前後台皆可管理，適合收藏與二手交易商用。</p>
-      <a href="#" class="btn">查看作品</a>
-    </div>
-  </div>
+        <label for="email">Email信箱</label><br />
+        <input type="email" id="email" name="email" placeholder="you@example.com" required /><br />
 
-  <h2>洽詢表單</h2>
-  <form method="POST">
-    <input type="text" name="name" placeholder="您的姓名" required>
-    <input type="email" name="email" placeholder="您的Email" required>
-    <textarea name="message" placeholder="請簡述需求內容" rows="5" required></textarea>
-    <button type="submit">送出詢問</button>
-  </form>
-</section>
+        <label for="message">Message留言</label><br />
+        <textarea id="message" name="message" placeholder="Write your message here..." rows="5" required></textarea><br />
 
-<footer>
-  <p>© 2025 藍京網頁設計工作室 | <a href="#" style="color:white; margin-left:5px;">Line我</a></p>
-</footer>
+        <button type="submit" class="btn-primary">Send Message</button>
+      </form>
+      <p id="formStatus" style="text-align:center; margin-top:1rem; color: green; display:none;">Thank you! Your message has been sent.</p>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 藍京網頁設計 Corp. All rights reserved.
+  </footer>
 
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      const form = event.target;
+      const status = document.getElementById('formStatus');
+
+      // Basic validation already handled by HTML5 required and type=email
+
+      // Show "sending" message
+      status.style.color = 'blue';
+      status.textContent = 'Sending...';
+      status.style.display = 'block';
+
+      // Simulate sending delay
+      setTimeout(() => {
+        status.style.color = 'green';
+        status.textContent = 'Thank you! Your message has been sent.';
+        form.reset();
+      }, 1000);
+
+      return false; // prevent actual form submission
+    }
+  </script>
 </body>
 </html>
