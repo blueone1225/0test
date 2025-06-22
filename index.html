@@ -42,6 +42,15 @@
     .service:hover, .work-item:hover {
       transform: translateY(-10px); box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
+
+    .service h3, .work-item h3 { margin-top: 0; color: #0066cc; }
+    .btn-primary, .btn {
+      display: inline-block; background: #004080; color: white;
+      padding: .7rem 1.5rem; border-radius: 4px;
+      text-decoration: none; font-weight: 600;
+      transition: background-color .3s;
+    }
+
     .service h3, .work-item h3 { margin-top: 0; color: #0066cc; }
     .btn-primary, .btn {
       display: inline-block; background: #004080; color: white;
@@ -118,10 +127,40 @@
       background: linear-gradient(90deg,#fff176,#ffc107);
       animation: divine-flash 1s ease-out;
     }
+
+    #prophecy-list li.highlight {
+      background: linear-gradient(90deg,#fff176,#ffc107);
+      animation: divine-flash 1s ease-out;
+    }
     @keyframes divine-flash {
       0%,100% { opacity:1; }
       50% { opacity:0.5; }
     }
+
+    @keyframes divine-flash {
+      0%,100% { opacity:1; }
+      50% { opacity:0.5; }
+    }
+
+ #about p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      color: #004080;
+      line-height: 1.8;
+    }
+#faq dd {
+      margin: 0 0 1rem 0;
+      padding: 0.5rem 0;
+      display: none;
+      color: #333;
+      line-height: 1.5;
+    }
+    #faq dd.show {
+      display: block;
+    }
+
+    
   </style>
 </head>
 <body>
