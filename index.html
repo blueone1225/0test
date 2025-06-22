@@ -1,46 +1,78 @@
-
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>藍京網頁設計 Corp</title>
+  <title>藍京網頁設計工作室 Corp</title>
   <style>
-    /* --- 原有主題樣式 --- */
+    /* 通用樣式 */
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f8f9fa; color: #333; line-height: 1.6; }
-    header { background: #004080; color: white; padding: 2rem 1rem; text-align: center; }
+    body {
+      margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa; color: #333; line-height: 1.6;
+    }
+    header {
+      background: #004080; color: white;
+      padding: 2rem 1rem; text-align: center;
+    }
     header h1 { margin: 0; font-weight: 700; }
-    nav { background: #0066cc; display: flex; justify-content: center;
-      gap: 2rem; padding: 1rem 0; }
-    nav a { color: white; text-decoration: none; font-weight: 600;
-      padding: .5rem 1rem; border-radius: 4px; transition: background-color .3s; }
+    nav {
+      background: #0066cc; display: flex; justify-content: center;
+      gap: 2rem; padding: 1rem 0;
+    }
+    nav a {
+      color: white; text-decoration: none; font-weight: 600;
+      padding: .5rem 1rem; border-radius: 4px; transition: background-color .3s;
+    }
     nav a:hover { background: #004080; }
     main { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
     section { margin-bottom: 3rem; }
-    h2 { color: #004080; border-bottom: 3px solid #0066cc; padding-bottom: .5rem; margin-bottom: 1rem; }
-    .services { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
-    .service { background: white; flex: 1 1 250px; padding: 1.5rem; border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;
-      transition: transform .3s ease; }
-    .service:hover { transform: translateY(-10px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-    .service h3 { margin-top: 0; color: #0066cc; }
-    .btn-primary { display: inline-block; background: #004080; color: white;
-      padding: .7rem 1.5rem; border: none; border-radius: 4px;
-      cursor: pointer; font-weight: 600; transition: background-color .3s;
-      text-decoration: none; }
-    .btn-primary:hover { background: #00264d; }
-    footer { background: #004080; color: white; text-align: center;
-      padding: 1.5rem 1rem; font-size: .9rem; }
+    h2 {
+      color: #004080; border-bottom: 3px solid #0066cc;
+      padding-bottom: .5rem; margin-bottom: 1rem;
+    }
+    .services, .works {
+      display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;
+    }
+    .service, .work-item {
+      background: white; flex: 1 1 250px; padding: 1.5rem;
+      border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform .3s ease;
+    }
+    .service:hover, .work-item:hover {
+      transform: translateY(-10px); box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .service h3, .work-item h3 { margin-top: 0; color: #0066cc; }
+    .btn-primary, .btn {
+      display: inline-block; background: #004080; color: white;
+      padding: .7rem 1.5rem; border-radius: 4px;
+      text-decoration: none; font-weight: 600;
+      transition: background-color .3s;
+    }
+    .btn-primary:hover, .btn:hover { background: #00264d; }
+    footer {
+      background: #004080; color: white; text-align: center;
+      padding: 1.5rem 1rem; font-size: .9rem;
+    }
 
-    /* --- 新增「神印加護」樣式 --- */
+    input, textarea {
+      width: 100%; padding: 0.5rem; margin: 0.5rem 0;
+      border: 1px solid #ccc; border-radius: 4px;
+    }
+    button[type="submit"] {
+      background: #004080; color: white;
+      padding: 0.7rem 1.2rem; border: none;
+      border-radius: 5px; cursor: pointer;
+    }
+
+    /* 加護區塊樣式 */
     body.divine-blur { filter: blur(8px); transition: filter .5s ease; }
-    #divine-overlay { position: absolute; top:0;left:0;right:0;bottom:0;
+    #divine-overlay {
+      position: absolute; top:0;left:0;right:0;bottom:0;
       background: radial-gradient(circle, rgba(255,255,255,0) 40%, rgba(255,255,255,0.1) 55%, rgba(255,255,255,0) 70%);
       pointer-events: none; opacity: 0;
-      animation: divine-pulse 2s infinite; transition: opacity .5s; }
+      animation: divine-pulse 2s infinite; transition: opacity .5s;
+    }
     @keyframes divine-pulse {
       0%,100% { transform: scale(0.95); opacity:0.2; }
       50% { transform: scale(1.05); opacity:0.35; }
@@ -56,24 +88,36 @@
       margin: 0; padding: 12px; background: rgba(0,0,0,0.6);
       color: #fff; font-size: 22px; text-align: center;
     }
-    #divine-main { display: flex; flex-wrap: wrap;
-      justify-content: space-around; padding: 20px; }
-    #divine-main > div:first-child { text-align: center; }
-    #divine-canvas { border-radius:10px; box-shadow:0 0 15px #00ffff80; background:#000; }
-    #activate { margin-top:12px; padding:10px 20px;
+    #divine-main {
+      display: flex; flex-wrap: wrap;
+      justify-content: space-around; padding: 20px;
+    }
+    #divine-canvas {
+      border-radius:10px; box-shadow:0 0 15px #00ffff80; background:#000;
+    }
+    #activate {
+      margin-top:12px; padding:10px 20px;
       background:#004080; color:#fff; border:none; border-radius:6px;
-      cursor:pointer; transition:.3s; }
+      cursor:pointer; transition:.3s;
+    }
     #activate:hover { background:#00264d; }
-    #result { margin:10px 0; padding:6px 10px; background:rgba(0,0,0,0.6);
-      border-radius:6px; color:#fff; }
-    #prophecy-list { max-height:260px; overflow-y:auto;
-      background:#f0f8ff; border-radius:8px; padding:10px; }
+    #result {
+      margin:10px 0; padding:6px 10px;
+      background:rgba(0,0,0,0.6); border-radius:6px; color:#fff;
+    }
+    #prophecy-list {
+      max-height:260px; overflow-y:auto;
+      background:#f0f8ff; border-radius:8px; padding:10px;
+    }
     #prophecy-list ul { list-style:none; padding:0; margin:0; }
-    #prophecy-list li { padding:4px; margin:4px 0; background:#fff; border-radius:4px;
-      transition: background .4s; }
+    #prophecy-list li {
+      padding:4px; margin:4px 0; background:#fff; border-radius:4px;
+      transition: background .4s;
+    }
     #prophecy-list li.highlight {
       background: linear-gradient(90deg,#fff176,#ffc107);
-      animation: divine-flash 1s ease-out; }
+      animation: divine-flash 1s ease-out;
+    }
     @keyframes divine-flash {
       0%,100% { opacity:1; }
       50% { opacity:0.5; }
@@ -81,42 +125,55 @@
   </style>
 </head>
 <body>
-  <header><h1> 藍京網頁設計 工作室corp </h1><p>Your Trusted Partner in Professional Solutions</p></header>
+  <header>
+    <h1>藍京網頁設計工作室 Corp</h1>
+    <p>量身打造｜網站・App・後台設計・誠信專業</p>
+  </header>
   <nav>
-    <a href="#services"> 服務 Services </a>
-    <a href="#about"> 關於 About Us </a>
-    <a href="#contact"> 請聯絡 Contact </a>
+    <a href="#services">服務</a>
+    <a href="#portfolio">作品</a>
+    <a href="#divine-awaken">加護</a>
+    <a href="#contact">聯絡</a>
   </nav>
   <main>
     <section id="services">
-      <h2> Services 業務 </h2>
+      <h2>我們能為你做什麼</h2>
       <div class="services">
-        <div class="service"><h3> 官方網站 Web Development </h3><p>Custom websites...</p><a href="#contact" class="btn-primary">Get Started</a></div>
-        <div class="service"><h3> 安卓開發 Apps </h3><p> Android app development...</p><a href="#contact" class="btn-primary">Get Started</a></div>
-        <div class="service"><h3> 數位行銷 Digital Marketing </h3><p>SEO, social media campaigns...</p><a href="#contact" class="btn-primary">Get Started</a></div>
+        <div class="service"><h3>企業形象網站</h3><p>客製化設計、快速部署，提升品牌價值。</p></div>
+        <div class="service"><h3>Android App 開發</h3><p>支援前後台同步與本地儲存功能。</p></div>
+        <div class="service"><h3>UI/UX 設計</h3><p>人性化操作，最佳化用戶體驗。</p></div>
+        <div class="service"><h3>系統維護</h3><p>除錯、升級、功能擴充一站包辦。</p></div>
       </div>
     </section>
-    <section id="about"><h2> About Us 公司概況 </h2>
-<p> At Lan Jing Web Design Studio, we have over 1 year of design and development experience, focusing on custom websites, Android app development, and UI/UX interface projects.
-We’ve completed multiple test projects and demo apps, and we’re experienced in both front-end and back-end web development workflows, as well as Android app frameworks. We offer flexible service options tailored to individual client needs and budgets. </p></section>
-    <section id="contact"><h2>Contact Us</h2>
-      <form id="contactForm" onsubmit="return handleSubmit(event)" style="max-width:500px;margin:auto;">
-        <label> Name 名字 </label><br/><input type="text" name="name" required /><br/>
-        <label> Email 信箱 </label><br/><input type="email" name="email" required /><br/>
-        <label> Message 留言 </label><br/><textarea name="message" rows="5" required></textarea><br/>
-        <button type="submit" class="btn-primary">Send Message</button>
-      </form>
-      <p id="formStatus" style="text-align:center;margin-top:1rem;color:green;display:none;">Thank you! Your message has been sent.</p>
+
+
+    
+    <section id="portfolio">
+      <h2>近期作品</h2>
+      <div class="works">
+        <div class="work-item">
+          <img src="https://yt3.ggpht.com/Qoo8QfUkxcaDG5WZKBw7IEmC_yFLzu4AbdWu5AOfWT0YIa2rzpe1ssgFj0cy3onaNY571NmTE5_8=s922-c-fcrop64=1,13830000d02fffff-rw-nd-v1" alt="作品圖片" style="width:100%; border-radius:5px;">
+          <h3>卡片管理系統 <small style="color:#555;">｜Web專案</small></h3>
+          <p>前後台皆可操作、支援稀有度分類與價格排序。</p>
+          <a href="#" class="btn">查看作品</a>
+        </div>
+        <div class="work-item">
+          <img src="https://ecpos.mybiz.net.tw/wp-content/uploads/%E5%B9%B3%E6%9D%BF1.png" alt="作品圖片" style="width:100%; border-radius:5px;">
+          <h3>Android 訂餐App <small style="color:#555;">｜Android App</small></h3>
+          <p>即時同步後台、支援離線記錄、訂單管理。</p>
+          <a href="#" class="btn">查看作品</a>
+        </div>
+      </div>
     </section>
 
-    <!-- ===== 新增：神印加護 · 能力覺醒 區塊 ===== -->
     <section id="divine-awaken">
       <h2>加護 · 能力覺醒</h2>
       <article id="divine-wrapper">
         <div id="divine-overlay"></div>
         <h3 id="divinity-title">神祉：－－－</h3>
         <div id="divine-main">
-          <div><canvas id="divine-canvas" width="240" height="240"></canvas><br/>
+          <div>
+            <canvas id="divine-canvas" width="240" height="240"></canvas><br/>
             <button id="activate">啟動神印</button>
             <div id="result"></div>
           </div>
@@ -127,20 +184,38 @@ We’ve completed multiple test projects and demo apps, and we’re experienced 
         </div>
       </article>
     </section>
+
+    <section id="contact">
+      <h2>聯絡我們</h2>
+      <form id="contactForm" onsubmit="return handleSubmit(event)" style="max-width:500px;margin:auto;">
+        <input type="text" name="name" placeholder="您的姓名" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <textarea name="message" placeholder="請輸入您的需求..." rows="5" required></textarea>
+        <button type="submit">送出詢問</button>
+      </form>
+      <p id="formStatus" style="text-align:center;margin-top:1rem;color:green;display:none;">Thank you! Your message has been sent.</p>
+    </section>
   </main>
 
-  <footer> &copy; 2025 藍京網頁設計工作室 corp. All rights reserved. </footer>
+  <footer>
+    <p>&copy; 2025 藍京網頁設計工作室 | <a href="#" style="color:white;">Line我</a></p>
+  </footer>
 
   <script>
-    function handleSubmit(e){ e.preventDefault();
+    function handleSubmit(e){
+      e.preventDefault();
       const status=document.getElementById('formStatus');
-      status.style.color='blue'; status.textContent='Sending...'; status.style.display='block';
-      setTimeout(()=>{ status.style.color='green'; status.textContent='Thank you! Your message has been sent.'; e.target.reset(); },1000);
+      status.style.color='blue';
+      status.textContent='Sending...';
+      status.style.display='block';
+      setTimeout(()=>{
+        status.style.color='green';
+        status.textContent='Thank you! Your message has been sent.';
+        e.target.reset();
+      },1000);
       return false;
     }
-  </script>
 
-  <script>
     const c = document.getElementById('divine-canvas'), ctx = c.getContext('2d'),
       result = document.getElementById('result'), prophecyUl = document.getElementById('prophecy-ul'),
       divinityTitle = document.getElementById('divinity-title'), wrapper = document.getElementById('divine-wrapper'),
@@ -153,14 +228,14 @@ We’ve completed multiple test projects and demo apps, and we’re experienced 
       "山谷神":["神語抗性 🌀","冰封領域 ❄️","光芒淨化 ✨"],
       "惡神":["靈魂束縛 🔗","沙塵掩護 🌪️","幻象迷蹤 🎭"]
     };
-    const backgrounds={
+    const backgrounds = {
       "若神":"https://i.imgur.com/xstAt6B.jpeg",
       "土地神":"https://otakuusamagazine.com/wp-content/uploads/2025/01/teogonia-pv-480x360.jpg",
       "強神":"https://yt3.ggpht.com/uvmIHqQWPYNqU2OdUw6FYOIiXxZfYuZw4FExu9GpYlMhaqrz1wTPNvjFf_lBTCuzgvFWfujEkyJ7=s800-c-fcrop64=1,3f1b0000cdbaffff-rw-nd-v1",
       "山谷神":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB31qCHoIEW88Q-jfet_iAMAd75CJCb3AZ1g&s",
       "惡神":"https://staticg.sportskeeda.com/editor/2025/06/68a9f-17498350533509-1920.jpg"
     };
-    const weighted=[
+    const weighted = [
       {name:"若神",weight:1},
       {name:"山谷神",weight:3},
       {name:"強神",weight:4},
@@ -168,12 +243,11 @@ We’ve completed multiple test projects and demo apps, and we’re experienced 
       {name:"惡神",weight:6}
     ];
     const all = Object.values(divinityAbilities).flat();
-
     function renderList(){
-      prophecyUl.innerHTML="";
-      all.forEach(a=>{
-        const li=document.createElement('li');
-        li.textContent=a; li.id='li-'+a;
+      prophecyUl.innerHTML = "";
+      all.forEach(a => {
+        const li = document.createElement('li');
+        li.textContent = a; li.id = 'li-' + a;
         prophecyUl.appendChild(li);
       });
     }
@@ -181,15 +255,12 @@ We’ve completed multiple test projects and demo apps, and we’re experienced 
     function weightedRandom(ws){
       const total = ws.reduce((sum,w)=>sum+w.weight,0);
       let r = Math.random()*total;
-      for(const w of ws){
-        if(r < w.weight) return w.name;
-        r -= w.weight;
-      }
+      for(const w of ws){ if(r < w.weight) return w.name; r -= w.weight; }
     }
 
     function drawSeal(rot){
-      ctx.clearRect(0,0,240,240);
-      ctx.save(); ctx.translate(120,120); ctx.rotate(rot);
+      ctx.clearRect(0,0,240,240); ctx.save();
+      ctx.translate(120,120); ctx.rotate(rot);
       ctx.strokeStyle="#004080"; ctx.lineWidth=3;
       ctx.beginPath(); ctx.arc(0,0,100,0,2*Math.PI); ctx.stroke();
       ctx.strokeStyle="#0066cc"; ctx.lineWidth=2;
@@ -204,11 +275,10 @@ We’ve completed multiple test projects and demo apps, and we’re experienced 
     }
 
     renderList(); drawSeal(0);
-    let anim=false;
-
+    let anim = false;
     document.getElementById('activate').onclick = () => {
       if(anim) return;
-      anim=true;
+      anim = true;
       document.body.classList.add('divine-blur');
       overlay.style.opacity = 1;
       result.textContent = '神印啟動中…';
